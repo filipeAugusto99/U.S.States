@@ -10,7 +10,8 @@ class Scoreboard(Turtle):
         self.hideturtle()
         self.states_data = pandas.read_csv("50_states.csv")
         self.states_list = self.states_data["state"].to_list()
-        self.correct_guesses = set()
+        self.correct_guesses = []
+        self.miss_guess = []
 
 
     def add_state_screen(self, name_state):
@@ -23,3 +24,9 @@ class Scoreboard(Turtle):
                    align="center",
                    font=("Courier", 11, "normal"))
         self.correct_guesses.append(name_state)
+
+
+    def missing_guesses(self):
+        for state in self.states_list:
+            if state not in self.correct_guesses:
+                self.miss_guess.append(state)

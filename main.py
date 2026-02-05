@@ -1,4 +1,5 @@
 import turtle
+import pandas
 from scoreboard import Scoreboard
 
 
@@ -16,9 +17,21 @@ while len(scoreboard.correct_guesses) < 50:
                                     prompt="What's another state's name?")
     titled_answer = answer_state.title()
 
+    if titled_answer == "Exit":
+        scoreboard.missing_guesses()
+        # with open("states_to_learn.csv", mode="w") as file_states_missing:
+        #     for file in scoreboard.miss_guess:
+        #         file_states_missing.write(file + "\n")
+        #         print(file)
+        new_data = pandas.DataFrame(scoreboard.miss_guess)
+        new_data.to_csv("states_to_learn.csv")
+        break
+
     if titled_answer not in scoreboard.correct_guesses:
         # Check if the guess is among the 50 states
         if titled_answer in scoreboard.states_list:
             # Write correct guesses onto the map
             scoreboard.add_state_screen(titled_answer)
-screen.exitonclick()
+
+
+
